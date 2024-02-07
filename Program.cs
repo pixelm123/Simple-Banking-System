@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 
 class Program
 {
@@ -12,7 +13,7 @@ class Program
         bank.AddAccount(account1);
         bank.AddAccount(account2);
 
-        
+
         account1.Attach(new TransactionNotifier());
         account2.Attach(new TransactionNotifier());
 
