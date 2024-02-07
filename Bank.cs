@@ -62,6 +62,20 @@ public class Bank : ISubject
         observers.Add(observer);
     }
 
+    public void RemoveAccount(BankAccount account)
+    {
+        if (account != null && accounts.ContainsKey(account.AccountNumber))
+        {
+            accounts.Remove(account.AccountNumber);
+            Console.WriteLine($"Account {account.AccountNumber} removed successfully.");
+        }
+        else
+        {
+            Console.WriteLine($"Account {account?.AccountNumber} not found.");
+        }
+    }
+
+
     public void Detach(IObserver observer)
     {
         observers.Remove(observer);

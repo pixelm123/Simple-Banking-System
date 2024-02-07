@@ -31,6 +31,7 @@ public class BankManager
         }
     }
 
+
     public void ViewBankStatistics()
     {
         decimal totalBalance = bank.GetAllAccounts().Sum(a => a.Balance);
