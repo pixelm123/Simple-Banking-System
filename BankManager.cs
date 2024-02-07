@@ -31,13 +31,14 @@ public class BankManager
         }
     }
 
-
     public void ViewBankStatistics()
     {
-        decimal totalBalance = bank.GetAllAccounts().Sum(a => a.Balance);
-        int totalAccounts = bank.GetAllAccounts().Count;
+        IEnumerable<BankAccount> allAccounts = bank.GetAllAccounts();
+        int totalAccounts = allAccounts.Count();
+        decimal totalBalance = allAccounts.Sum(a => a.Balance);
 
         Console.WriteLine($"Total Accounts: {totalAccounts}");
         Console.WriteLine($"Total Balance: {totalBalance:C}");
     }
+
 }

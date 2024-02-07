@@ -7,9 +7,16 @@ public class Bank : ISubject
     private Dictionary<string, BankAccount> accounts = new Dictionary<string, BankAccount>();
     private List<IObserver> observers = new List<IObserver>();
 
+
+
     private static Bank instance;
 
     private Bank() { }
+
+    public IEnumerable<BankAccount> GetAllAccounts()
+    {
+        return accounts.Values;
+    }
 
     public static Bank GetInstance()
     {
