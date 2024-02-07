@@ -1,57 +1,38 @@
 ﻿using System;
 
-class BankAccount
-{
-    private string accountHolderName;
-    private string accountNumber;
-    private decimal balance;
-
-    public BankAccount(string name, string number, decimal initialBalance)
-    {
-        accountHolderName = name;
-        accountNumber = number;
-        balance = initialBalance;
-    }
-
-    public void Deposit(decimal amount)
-    {
-        balance += amount;
-        Console.WriteLine($"{amount} deposited successfully.");
-    }
-
-    public void Withdraw(decimal amount)
-    {
-        if (balance >= amount)
-        {
-            balance -= amount;
-            Console.WriteLine($"{amount} withdrawn successfully.");
-        }
-        else
-        {
-            Console.WriteLine("Insufficient funds.");
-        }
-    }
-
-    public void CheckBalance()
-    {
-        Console.WriteLine($"Account Balance: {balance}");
-    }
-}
-
 class Program
 {
     static void Main(string[] args)
     {
-        BankAccount account1 = new BankAccount("John Doe", "123456", 1000.00m);
-        BankAccount account2 = new BankAccount("Jane Smith", "654321", 2000.00m);
+        Bank bank = Bank.GetInstance();
 
-        // Perform operations on accounts
+        BankAccount account1 = new BankAccount("123456", "John Doe", 1000.00m);
+        BankAccount account2 = new BankAccount("654321", "Jane Smith", 2000.00m);
+
+        bank.AddAccount(account1);
+        bank.AddAccount(account2);
+
+        
+        account1.Attach(new TransactionNotifier());
+        account2.Attach(new TransactionNotifier());
+
         account1.CheckBalance();
         account1.Deposit(500.00m);
         account1.Withdraw(200.00m);
         account1.CheckBalance();
+        account1.PrintTransactionHistory();
+
+        Console.WriteLine();
 
         account2.CheckBalance();
-        account2.Withdraw(3000.00m); // This should show an error message
+        account2.Withdraw(3000.00m);
+        account2.CheckBalance();
+        account2.PrintTransactionHistory();
+
+        Console.WriteLine();
+
+        bank.Transfer(account1, account2, 200.00m);
+        account1.PrintTransactionHistory();
+        account2.PrintTransactionHistory();
     }
 }
